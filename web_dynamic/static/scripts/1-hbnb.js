@@ -1,19 +1,16 @@
 $(document).ready(function (){
-	var checkedAmenities = []
-	$('input[type="checkbox"'].change(function(){ 
+	var checkedAmenities = {}
+	$('input[type="checkbox"]').change(function(){ 
 	var amenityId = $(this).data('id');
 	var amenityName = $(this).data('name');
-		if ( $(this).is(':checked')) {
-		
-		checkedAmenities.push(amenityId);
+		if ($(this).is(':checked')) {
+		  checkedAmenities[amenityId] = amenityName
 		}
 		else {
-		var index = checkedAmenities.indexOf(amenityId);
-			if ( index !== -1) {
-			checkedAmenities.splice(index, 1);
-			}
+		  delete checkedAmenities[amenityId];
 		}
-		 $('.amenities h4').text('Amenities: ' + checkedAmenities.join(', '));
+		 var names = Object.values(checkedAmenities);
+		 $('.amenities h4').text(names.join(', '));
 
 	});
 });
